@@ -2,39 +2,9 @@
 $(function() {
     console.log('ready');
 });
-// gets data for an updating date
-function getHeaderDate() {
-    var currentHeaderDate = moment().format('MMMM, dddd Do');
-    $("#currentDay").text(currentHeaderDate);
-}
-
-// saves data to localStorage
-function saveTasks () {
-    localStorage.setItem("myDay", JSON.stringify(myDay));
-}
-
-// displays tasks from localStorage
-function displayTasks() {
-    myDay.forEach(function (_thisHour) {
-        $(`#{_thisHour.id}`).val(_thisHour.reminder);
-    })
-}
-
-// displays existing tasks from localStorage if they exist 
-
-function init() {
-    var daysTasks = JSON.parse(localStorage.getItem("myDay"));
-    if(daysTasks) {
-        myDay = daysTasks;
-    }
-    saveTasks();
-    displayTasks();
-}
-// adds header date
-getHeaderDate();
-
 // created variables to store task data
-var myDay = [
+
+var theDay = [
     {
         id:"0",
         hour: "09",
@@ -99,3 +69,78 @@ var myDay = [
         amOrPm:"pm"
     },
 ]
+
+
+
+// gets data for an updating date
+function getHeaderDate() {
+    var currentHeaderDate = moment().format('dddd, MMMM Do, YYYY');
+    $("#currentDay").text(currentHeaderDate);
+}
+
+// saves data to localStorage
+function saveTasks () {
+    localStorage.setItem("myDay", JSON.stringify(theDay));
+}
+
+// displays tasks from localStorage
+function displayTasks() {
+    theDay.forEach(function (_thisHour) {
+        $(`#{_thisHour.id}`).val(_thisHour.reminder);
+    })
+}
+
+// displays existing tasks from localStorage if they exist 
+
+function init() {
+    var daysTasks = JSON.parse(localStorage.getItem("myDay"));
+    if(daysTasks) {
+        theDay = daysTasks;
+    }
+    saveTasks();
+    displayTasks();
+}
+// adds header date
+getHeaderDate();
+
+//styles the container of hours and tasks
+theDay.forEach(function(thisHour) {
+    var timeRow = $("<form>").attr({
+        "class": "row"
+    });
+    $(".container").append(timeRow);
+
+    var timeCol = $("<div>")
+    .text(`${thisHour.hour}${thisHour.amOrPm}`)
+    .attr9({
+        "class": "col-md hour"
+    });
+// creates the data that will hold the tasks and compares time through moment
+    var hourTask = $("<div>")
+    .attr({
+        "class": "col-md-9 description p-0"
+    });
+    var taskData = $("<textarea>");
+    hourTask.append(taskData);
+    taskData.attr("id", thisHour.id);
+    if (thisHour.time < moment().format("HH")) {
+        taskData.attr ({
+            "class":"past",
+        })
+    } else if (thisHour.time === moment().format("HH")) {
+        taskData.attr({
+            "class":"present"
+        })
+    } else if (thisHour.time > moment().format("HH")) {
+        taskData.attr({
+            "class":"future"
+        })
+    }
+//make a save button to tell local storage to keep info after refresh
+
+
+
+
+
+}
+)
