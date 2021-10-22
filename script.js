@@ -7,63 +7,63 @@ $(function() {
 var theDay = [
     {
         id:"0",
-        hour: "09",
+        hour: "9:00 ",
         time:"09",
         task:"",
         amOrPm:"am"
     },
     {
         id:"1",
-        hour: "10",
+        hour: "10:00 ",
         time:"10",
         task:"",
         amOrPm:"am"
     },
     {
         id:"2",
-        hour: "11",
+        hour: "11:00 ",
         time:"11",
         task:"",
         amOrPm:"am"
     },
     {
         id:"3",
-        hour: "12",
+        hour: "12:00 ",
         time:"12",
         task:"",
         amOrPm:"pm"
     },
     {
         id:"4",
-        hour: "01",
+        hour: "1:00 ",
         time:"13",
         task:"",
         amOrPm:"pm"
     },
     {
         id:"5",
-        hour: "02",
+        hour: "2:00 ",
         time:"14",
         task:"",
         amOrPm:"pm"
     },
     {
         id:"6",
-        hour: "03",
+        hour: "3:00 ",
         time:"14",
         task:"",
         amOrPm:"pm"
     },
     {
         id:"7",
-        hour: "04",
+        hour: "4:00 ",
         time:"15",
         task:"",
         amOrPm:"pm"
     },
     {
         id:"8",
-        hour: "05",
+        hour: "5:00 ",
         time:"16",
         task:"",
         amOrPm:"pm"
@@ -73,9 +73,9 @@ var theDay = [
 
 
 // gets data for an updating date
-function getHeaderDate() {
-    var currentHeaderDate = moment().format('dddd, MMMM Do, YYYY');
-    $("#currentDay").text(currentHeaderDate);
+function headerDate() {
+    var currentDate = moment().format('dddd, MMMM Do, YYYY');
+    $("#currentDay").text(currentDate);
 }
 
 // saves data to localStorage
@@ -86,7 +86,7 @@ function saveTasks () {
 // displays tasks from localStorage
 function displayTasks() {
     theDay.forEach(function (_thisHour) {
-        $(`#{_thisHour.id}`).val(_thisHour.reminder);
+        $(`#${_thisHour.id}`).val(_thisHour.reminder);
     })
 }
 
@@ -101,7 +101,7 @@ function init() {
     displayTasks();
 }
 // adds header date
-getHeaderDate();
+headerDate();
 
 //styles the container of hours and tasks
 theDay.forEach(function(thisHour) {
@@ -112,13 +112,13 @@ theDay.forEach(function(thisHour) {
 
     var timeCol = $("<div>")
     .text(`${thisHour.hour}${thisHour.amOrPm}`)
-    .attr9({
-        "class": "col-md hour"
+    .attr({
+        "class": "col-md-3 hour"
     });
-// creates the data that will hold the tasks and compares time through moment
+// creates what will hold the tasks and compares time through moment
     var hourTask = $("<div>")
     .attr({
-        "class": "col-md-9 description p-0"
+        "class": "col-md description p-0"
     });
     var taskData = $("<textarea>");
     hourTask.append(taskData);
@@ -137,10 +137,26 @@ theDay.forEach(function(thisHour) {
         })
     }
 //make a save button to tell local storage to keep info after refresh
-
-
-
-
-
+var saveButton = $("<i class='far fa-save fa-lg'></i>")
+var saveTask = $("<button>")
+    .attr({
+        "class": "col-md-1 saveBtn"
+    });
+    saveTask.append(saveButton);
+    timeRow.append(timeCol,hourTask, saveTask);
 }
 )
+// loads localStorage data into hour fields after they are created
+init();
+
+// saves the data to be used by the localStorage
+$(".saveBtn").on("click", function(event) {
+    event.preventDefault();
+    var saveLocal = $(this).siblings(".description").children(".future").attr("id");
+    theDay[saveLocal].reminder = $(this).siblings(".description").children(".future").val();
+    console.log(saveLocal);
+    saveTasks();
+    displayTasks();
+})
+
+//Script page! Controls the functionality of the Scheduler!

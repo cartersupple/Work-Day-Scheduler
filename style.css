@@ -11,6 +11,8 @@ textarea{
   color: #000000;
   border-left: 1px solid black;
   padding: 10px;
+  width: 100%;
+  height: 100%;
 }
 
 .jumbotron {
@@ -63,9 +65,19 @@ textarea{
   border-bottom-right-radius: 15px;
   background-color: #06AED5;
   color: white;
+  transition: background-color #0a6174
 }
-
-.saveBtn i:hover {
+/* changed to focus on the container of the logo to transition to a deeper blue */
+.saveBtn:hover {
   font-size: 20px;
   transition: all .3s ease-in-out;
+  background-color: #0a6174;
+}
+/* styled the timeCol class to make it look like an old clock */
+.col-md-3 {
+  background-color: rgb(192, 211, 143);
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  font-family: 'Orbitron', sans-serif;
 }
