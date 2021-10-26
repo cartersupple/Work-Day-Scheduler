@@ -9,4 +9,4 @@ https://cartersupple.github.io/Work-Day-Scheduler/
 
 # Screenshot
 
-# Screen Shot 2021-10-25 at 7.02.33 PM.png
+# <img width="1440" alt="Screen Shot 2021-10-25 at 7 02 33 PM" src="https://user-images.githubusercontent.com/89411805/138797081-b08b82f8-982b-448f-b680-040bdd31ba12.png">
